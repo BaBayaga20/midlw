@@ -22,7 +22,7 @@ def start_server():
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.bind(("0.0.0.0",PORT))
     server.listen(5)
-    print("Servidor en espera en el puerto 9999")
+#    print("Servidor en espera en el puerto 9999")
 
     while True:
         client_socket, addr = server.accept()
@@ -30,9 +30,9 @@ def start_server():
         client_handler = threading.Thread(target=handle_client, args=(client_socket,))
         client_handler.start()
 
-def send_message(message,SERVER):
+def send_message(SERVER,message):
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client.connect(("127.0.0.1",9999))
+    client.connect((SERVER,PORT))
     client.send(message.encode('utf-8'))
     response = client.recv(1024)
     print(f"Server response: {response.decode('utf-8')}")
